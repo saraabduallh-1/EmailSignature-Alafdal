@@ -186,11 +186,11 @@ downloadBtn.addEventListener("click", async () => {
 });
 
 copyLinkBtn.addEventListener("click", async () => {
-  const fixedUrl = "https://رابط-موقع-التوقيع.vercel.app/";
+  const fixedUrl = "https://email-signature-alafdal.vercel.app/";
 
   try {
     await navigator.clipboard.writeText(fixedUrl);
-    statusEl.textContent = " تم نسخ رابط التوقيع";
+    statusEl.textContent = " تم نسخ رابط موقع إنشاء التوقيع";
   } catch {
     statusEl.textContent = "انسخ الرابط يدويًا";
   }
