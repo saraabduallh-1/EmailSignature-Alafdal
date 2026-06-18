@@ -172,17 +172,39 @@ templateSelect.addEventListener("change", async () => {
 
 downloadBtn.addEventListener("click", async () => {
   const blob = await new Promise((resolve) =>
-    canvas.toBlob(resolve, "image/png", 1),
+    canvas.toBlob(resolve, "image/png", 1)
   );
 
+  if (!blob) return;
+
+  const file = new File([blob], "email-signature.png", {
+    type: "image/png",
+  });
+
+  // يفتح خيارات المشاركة في الجوال: Save Image / WhatsApp / Files
+  if (
+    navigator.share &&
+    navigator.canShare &&
+    navigator.canShare({ files: [file] })
+  ) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: "Email Signature",
+      });
+      return;
+    } catch (error) {
+      // إذا المستخدم قفل المشاركة، نكمل للتحميل العادي
+    }
+  }
+
+  // احتياطي: يفتح الصورة في تبويب جديد
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  window.open(url, "_blank");
 
-  a.href = url;
-  a.download = "email-signature.png";
-  a.click();
-
-  URL.revokeObjectURL(url);
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 10000);
 });
 
 copyLinkBtn.addEventListener("click", async () => {
