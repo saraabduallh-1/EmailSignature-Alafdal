@@ -205,37 +205,6 @@ downloadBtn.addEventListener("click", async () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
-  if (!blob) return;
-
-  const file = new File([blob], "email-signature.png", {
-    type: "image/png",
-  });
-
-  // يفتح خيارات المشاركة في الجوال: Save Image / WhatsApp / Files
-  if (
-    navigator.share &&
-    navigator.canShare &&
-    navigator.canShare({ files: [file] })
-  ) {
-    try {
-      await navigator.share({
-        files: [file],
-        title: "Email Signature",
-      });
-      return;
-    } catch (error) {
-      // إذا المستخدم قفل المشاركة، نكمل للتحميل العادي
-    }
-  }
-
-  // احتياطي: يفتح الصورة في تبويب جديد
-  const url = URL.createObjectURL(blob);
-  window.open(url, "_blank");
-
-  setTimeout(() => {
-    URL.revokeObjectURL(url);
-  }, 10000);
-});
 
 copyLinkBtn.addEventListener("click", async () => {
   const fixedUrl = "https://email-signature-alafdal.vercel.app/";
