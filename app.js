@@ -27,7 +27,7 @@ const TEMPLATES = {
     fields: {
       name: {
         x: 895,
-        y: 488,
+        y: 488 -8,
         maxWidth: 520,
         fontSize: 52,
         color: "#1E6E44",
@@ -36,7 +36,7 @@ const TEMPLATES = {
 
       job: {
         x: 895,
-        y: 545,
+        y: 545-8,
         maxWidth: 420,
         fontSize: 32,
         color: "#444444",
