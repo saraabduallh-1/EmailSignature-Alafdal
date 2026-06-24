@@ -169,14 +169,14 @@ downloadBtn.addEventListener("click", async () => {
 
   if (!blob) return;
 
-  // للجوالات الحديثة
-  const file = new File(
-    [blob],
-    "email-signature.png",
-    { type: "image/png" }
-  );
+  const file = new File([blob], "email-signature.png", {
+    type: "image/png",
+  });
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   if (
+    isMobile &&
     navigator.share &&
     navigator.canShare &&
     navigator.canShare({ files: [file] })
@@ -184,15 +184,13 @@ downloadBtn.addEventListener("click", async () => {
     try {
       await navigator.share({
         files: [file],
-        title: "Email Signature",
       });
       return;
     } catch (err) {
-      // إذا ألغى المستخدم المشاركة نكمل للتحميل
+      // إذا ألغى المستخدم المشاركة، يكمل للتحميل
     }
   }
 
-  // اللابتوب أو الأجهزة التي لا تدعم المشاركة
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
