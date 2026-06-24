@@ -12,7 +12,6 @@ const jobInput = document.getElementById("jobInput");
 const addressInput = document.getElementById("addressInput");
 const phoneInput = document.getElementById("phoneInput");
 const emailInput = document.getElementById("emailInput");
-const websiteInput = document.getElementById("websiteInput");
 
 const downloadBtn = document.getElementById("downloadBtn");
 const copyLinkBtn = document.getElementById("copyLinkBtn");
@@ -70,14 +69,7 @@ const TEMPLATES = {
         weight: "400",
       },
 
-      website: {
-        x: 1440,
-        y: 668,
-        maxWidth: 360,
-        fontSize: 28,
-        color: "#555555",
-        weight: "400",
-      },
+
     },
   },
 };
@@ -144,7 +136,7 @@ function draw() {
   drawField(addressInput.value.trim(), cfg.fields.address);
   drawField(emailInput.value.trim(), cfg.fields.email);
   drawField(phoneInput.value.trim(), cfg.fields.phone);
-  drawField(websiteInput.value.trim(), cfg.fields.website);
+
 }
 
 async function init() {
@@ -165,7 +157,7 @@ templateSelect.addEventListener("change", async () => {
   addressInput,
   phoneInput,
   emailInput,
-  websiteInput,
+
 ].forEach((input) => {
   input.addEventListener("input", draw);
 });
