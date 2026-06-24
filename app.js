@@ -169,6 +169,44 @@ downloadBtn.addEventListener("click", async () => {
 
   if (!blob) return;
 
+  // للجوالات الحديثة
+  const file = new File(
+    [blob],
+    "email-signature.png",
+    { type: "image/png" }
+  );
+
+  if (
+    navigator.share &&
+    navigator.canShare &&
+    navigator.canShare({ files: [file] })
+  ) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: "Email Signature",
+      });
+      return;
+    } catch (err) {
+      // إذا ألغى المستخدم المشاركة نكمل للتحميل
+    }
+  }
+
+  // اللابتوب أو الأجهزة التي لا تدعم المشاركة
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "email-signature.png";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+  if (!blob) return;
+
   const file = new File([blob], "email-signature.png", {
     type: "image/png",
   });
